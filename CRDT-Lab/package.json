@@ -11,7 +11,10 @@
     "phase2:interleaving": "node phase2-sequence/interleaving.js",
     "phase2:e2e": "node phase2-sequence/sync-test.js",
     "phase2:serve": "node phase2-sequence/server.js",
-    "test": "node phase0-causality/test.js && node phase1-basic-crdts/test.js && node phase2-sequence/test.js && node phase2-sequence/sync-test.js"
+    "phase3:test": "node phase3-sync/test.js",
+    "phase3:e2e": "node phase3-sync/e2e-test.js",
+    "phase3:serve": "node phase3-sync/server.js",
+    "test": "node phase0-causality/test.js && node phase1-basic-crdts/test.js && node phase2-sequence/test.js && node phase2-sequence/sync-test.js && node phase3-sync/test.js && node phase3-sync/e2e-test.js"
   },
   "dependencies": {
     "ws": "^8.21.0"

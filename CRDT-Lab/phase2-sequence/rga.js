@@ -159,4 +159,10 @@ class RGA {
 // source of truth avoids the Node tests and the browser demo drifting apart.
 if (typeof module !== 'undefined' && module.exports) {
   module.exports = { RGA, compareId, keyOf };
+} else if (typeof globalThis !== 'undefined') {
+  // Browser: top-level `class` bindings are NOT properties of globalThis, so
+  // expose them explicitly for other scripts (sync-doc.js) that look them up.
+  globalThis.RGA = RGA;
+  globalThis.compareId = compareId;
+  globalThis.keyOf = keyOf;
 }

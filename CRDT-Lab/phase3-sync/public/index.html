@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Collab Editor — Phase 3 (delta sync + presence)</title>
+    <style>
+      body { font: 15px/1.5 system-ui, sans-serif; max-width: 720px; margin: 40px auto; padding: 0 16px; color: #1a1a1a; }
+      h1 { font-size: 20px; }
+      .meta { color: #666; font-size: 13px; margin-bottom: 12px; }
+      #status { font-weight: 600; }
+      textarea { width: 100%; height: 300px; font: 15px/1.6 ui-monospace, monospace; padding: 12px; box-sizing: border-box; border: 1px solid #ccc; border-radius: 6px; }
+      #peers { margin-top: 10px; font-size: 13px; min-height: 22px; }
+      .peer { display: inline-block; margin-right: 12px; padding: 2px 8px; border-radius: 12px; color: #fff; }
+      .hint { color: #888; font-size: 13px; margin-top: 10px; }
+      button { font-size: 13px; padding: 4px 10px; margin-left: 8px; }
+    </style>
+  </head>
+  <body>
+    <h1>Collaborative Editor — Phase 3</h1>
+    <div class="meta">
+      Replica <span id="replica"></span> · room <span id="room"></span> ·
+      <span id="status">connecting…</span>
+      <button id="toggle">Go offline</button>
+    </div>
+    <textarea id="editor" placeholder="Type here. Open another tab (same ?room=) to collaborate. Try going offline, editing, then reconnecting."></textarea>
+    <div id="peers"></div>
+    <p class="hint">
+      Reconnecting sends a <b>version vector</b>; the hub replies with only the ops you're
+      missing (one delta, not the whole history). Cursors are <b>ephemeral awareness</b> — they
+      never enter the document history.
+    </p>
+
+    <script src="/rga.js"></script>
+    <script src="/sync-doc.js"></script>
+    <script src="/awareness.js"></script>
+    <script src="/client.js"></script>
+  </body>
+</html>

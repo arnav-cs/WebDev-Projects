@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>RGA Collaborative Editor — Phase 2 checkpoint</title>
+    <style>
+      body { font: 15px/1.5 system-ui, sans-serif; max-width: 720px; margin: 40px auto; padding: 0 16px; color: #1a1a1a; }
+      h1 { font-size: 20px; }
+      .meta { color: #666; font-size: 13px; margin-bottom: 12px; }
+      #status { font-weight: 600; }
+      textarea { width: 100%; height: 320px; font: 15px/1.6 ui-monospace, monospace; padding: 12px; box-sizing: border-box; border: 1px solid #ccc; border-radius: 6px; }
+      .hint { color: #888; font-size: 13px; margin-top: 10px; }
+      code { background: #f2f2f2; padding: 1px 5px; border-radius: 4px; }
+    </style>
+  </head>
+  <body>
+    <h1>RGA Collaborative Editor</h1>
+    <div class="meta">
+      Replica <span id="replica"></span> · room <span id="room"></span> · <span id="status">connecting…</span>
+    </div>
+    <textarea id="editor" placeholder="Type here. Open this same URL in another tab to collaborate."></textarea>
+    <p class="hint">
+      Every keystroke becomes RGA insert/delete ops broadcast over the websocket relay. The
+      server never sees the text — only opaque ops. Convergence is computed by the
+      <code>RGA</code> in each tab. Open a second tab (same <code>?room=</code>) and type in both
+      at once.
+    </p>
+
+    <!-- Shared CRDT source, served straight from ../rga.js (single source of truth). -->
+    <script src="/rga.js"></script>
+    <script src="/client.js"></script>
+  </body>
+</html>

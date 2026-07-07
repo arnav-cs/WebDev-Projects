@@ -6,6 +6,14 @@
   "scripts": {
     "phase0:demo": "node phase0-causality/demo.js",
     "phase0:test": "node phase0-causality/test.js",
-    "test": "node phase0-causality/test.js"
+    "phase1:test": "node phase1-basic-crdts/test.js",
+    "phase2:test": "node phase2-sequence/test.js",
+    "phase2:interleaving": "node phase2-sequence/interleaving.js",
+    "phase2:e2e": "node phase2-sequence/sync-test.js",
+    "phase2:serve": "node phase2-sequence/server.js",
+    "test": "node phase0-causality/test.js && node phase1-basic-crdts/test.js && node phase2-sequence/test.js && node phase2-sequence/sync-test.js"
+  },
+  "dependencies": {
+    "ws": "^8.21.0"
   }
 }

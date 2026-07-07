@@ -1,0 +1,11 @@
+{
+  "name": "crdt-lab",
+  "version": "0.0.0",
+  "private": true,
+  "description": "From-scratch CRDT / distributed-systems study lab (see CRDT-Systems-Roadmap.md)",
+  "scripts": {
+    "phase0:demo": "node phase0-causality/demo.js",
+    "phase0:test": "node phase0-causality/test.js",
+    "test": "node phase0-causality/test.js"
+  }
+}

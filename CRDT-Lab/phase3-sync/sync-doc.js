@@ -33,12 +33,18 @@ class SyncDoc {
     this.oplog = {};
     // version vector: origin -> highest contiguous seq stored.
     this.vv = {};
+    // Op coordinates per character id, so Phase 4 GC can ask "is the insert /
+    // delete of this node causally stable?" idKey -> { origin, seq }.
+    this.insertMeta = {};
+    this.deleteMeta = {};
   }
 
   _store(origin, seq, inner) {
     if (!this.oplog[origin]) this.oplog[origin] = [];
     if (this.oplog[origin][seq - 1]) return false; // already have it (dedup)
     this.oplog[origin][seq - 1] = { origin, seq, inner };
+    if (inner.type === 'insert') this.insertMeta[`${inner.id.c}:${inner.id.r}`] = { origin, seq };
+    else this.deleteMeta[`${inner.id.c}:${inner.id.r}`] = { origin, seq };
     // Advance the contiguous frontier.
     let v = this.vv[origin] || 0;
     while (this.oplog[origin][v]) v++;
@@ -97,6 +103,22 @@ class SyncDoc {
   }
   length() {
     return this.rga.length();
+  }
+
+  // ---- Phase 4 instrumentation --------------------------------------------
+  // How many nodes (live + tombstones) the document is carrying, and a rough
+  // in-memory byte estimate. Used to demonstrate GC and encoding wins.
+  nodeCount() {
+    return this.rga.nodes.length;
+  }
+  liveCount() {
+    return this.rga.length();
+  }
+  tombstoneCount() {
+    return this.rga.nodes.filter((n) => n.deleted).length;
+  }
+  oplogCount() {
+    return Object.values(this.oplog).reduce((a, log) => a + log.filter(Boolean).length, 0);
   }
 }
 

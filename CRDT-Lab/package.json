@@ -14,7 +14,8 @@
     "phase3:test": "node phase3-sync/test.js",
     "phase3:e2e": "node phase3-sync/e2e-test.js",
     "phase3:serve": "node phase3-sync/server.js",
-    "test": "node phase0-causality/test.js && node phase1-basic-crdts/test.js && node phase2-sequence/test.js && node phase2-sequence/sync-test.js && node phase3-sync/test.js && node phase3-sync/e2e-test.js"
+    "phase4:test": "node phase4-systems/test.js",
+    "test": "node phase0-causality/test.js && node phase1-basic-crdts/test.js && node phase2-sequence/test.js && node phase2-sequence/sync-test.js && node phase3-sync/test.js && node phase3-sync/e2e-test.js && node phase4-systems/test.js"
   },
   "dependencies": {
     "ws": "^8.21.0"

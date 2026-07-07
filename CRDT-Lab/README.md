@@ -5,25 +5,35 @@ Every layer is built from scratch, zero-dependency, with the production librarie
 (Yjs, Automerge) reserved as the answer key. The deliverable is understanding;
 the editor is the vehicle.
 
-## Progress
+## Progress — all phases complete
 
 | Phase | Topic | Status |
 |-------|-------|--------|
-| 0 | Distributed-systems foundations — causality, vector clocks, causal delivery | ✅ done |
-| 1 | Easy-mode CRDTs + convergence testing | ⬜ next |
-| 2 | Sequence CRDT for text (the hard part) | ⬜ |
-| 3 | Sync protocol & transport | ⬜ |
-| 4 | Systems-hard problems (pick two, go deep) | ⬜ |
-| 5 | Rigor, comparison, writeup | ⬜ |
+| 0 | Distributed-systems foundations — causality, vector clocks, causal delivery | ✅ |
+| 1 | Easy-mode CRDTs + reusable convergence harness | ✅ |
+| 2 | Sequence CRDT for text (RGA) + interleaving anomaly + two-tab checkpoint | ✅ |
+| 3 | Sync protocol & transport (version-vector delta sync, presence) | ✅ |
+| 4 | Systems-hard problems: tombstone GC + binary encoding + snapshots | ✅ |
+| 5 | Rigor (scaled fuzz), Yjs benchmark, rich-text stretch, deep-dive writeup | ✅ |
+
+**Read [`phase5-rigor/DEEP-DIVE.md`](phase5-rigor/DEEP-DIVE.md) for the full
+technical narrative** and headline results.
 
 ## Running
 
-No dependencies. Node ≥ 18.
+Correctness suite is zero-dependency except `ws` (transport). The Yjs benchmark
+needs dev deps. Node ≥ 18.
 
 ```bash
-cd phase0-causality
-node demo.js   # deterministic, human-readable causal-buffering walkthrough
-node test.js   # 400 randomized lossy/reordering scenarios, asserts SEC + causal safety
+npm install        # ws + yjs (yjs only for the benchmark)
+npm test           # every phase's correctness suite, end to end
+
+# individual pieces
+npm run phase0:demo        # causal-buffering walkthrough
+npm run phase2:serve       # then open http://localhost:3000 in two tabs
+npm run phase3:serve       # delta sync + presence + offline toggle
+npm run phase4:test        # GC + encoding + snapshots
+npm run phase5:bench       # head-to-head vs Yjs
 ```
 
 ## Phase 0 — what's here

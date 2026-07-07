@@ -15,9 +15,15 @@
     "phase3:e2e": "node phase3-sync/e2e-test.js",
     "phase3:serve": "node phase3-sync/server.js",
     "phase4:test": "node phase4-systems/test.js",
-    "test": "node phase0-causality/test.js && node phase1-basic-crdts/test.js && node phase2-sequence/test.js && node phase2-sequence/sync-test.js && node phase3-sync/test.js && node phase3-sync/e2e-test.js && node phase4-systems/test.js"
+    "phase5:fuzz": "node phase5-rigor/fuzz-scale.js",
+    "phase5:bench": "node phase5-rigor/benchmark.js",
+    "phase5:richtext": "node phase5-rigor/rich-text.js",
+    "test": "node phase0-causality/test.js && node phase1-basic-crdts/test.js && node phase2-sequence/test.js && node phase2-sequence/sync-test.js && node phase3-sync/test.js && node phase3-sync/e2e-test.js && node phase4-systems/test.js && node phase5-rigor/fuzz-scale.js 1000 && node phase5-rigor/rich-text.js"
   },
   "dependencies": {
     "ws": "^8.21.0"
+  },
+  "devDependencies": {
+    "yjs": "^13.6.0"
   }
 }
